@@ -318,30 +318,54 @@ button{font:inherit}
   margin:2px 0;
   display:flex;
   flex-direction:column;
-  gap:4px;
+  align-items:flex-start;
+  gap:6px;
 }
 .cover-names{
   margin:0;
   font-family:var(--serif);
   font-weight:400;
-  font-size:clamp(36px, 4.2vw, 56px);
-  line-height:1.06;
+  font-size:clamp(34px, 3.8vw, 50px);
+  line-height:1.12;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+.cover-names .c-nm{
+  display:block;
   background:linear-gradient(135deg, #FFFDF8 0%, #F8E29E 30%, #DFBF77 65%, #C29337 100%);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 2px 14px rgba(223,191,119,.35));
+  white-space:nowrap;
 }
-.cover-names .amp{
-  display:inline-block;
-  margin:0 8px;
-  font-size:.7em;
-  font-style:italic;
+.cover-names .cover-amp{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  align-self:center;
+  margin:2px 0;
   color:var(--gold-l);
   -webkit-text-fill-color:initial;
 }
+.cover-names .cover-amp .c-amp-symbol{
+  font-size:clamp(22px, 2.5vw, 32px);
+  font-style:italic;
+  color:var(--gold-l);
+  display:inline-block;
+  animation:sway 4s ease-in-out infinite;
+  text-shadow:0 0 10px rgba(223,191,119,.45);
+}
+.cover-names .cover-amp .c-amp-line{
+  width:32px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(223,191,119,.7), transparent);
+}
 .cover-telugu-nm{
   margin:0;
-  font-size:clamp(17px, 1.9vw, 22px);
+  font-size:clamp(16px, 1.8vw, 21px);
   color:var(--gold-p);
   letter-spacing:.04em;
 }
@@ -458,6 +482,10 @@ button{font:inherit}
     align-items:center;
     text-align:center;
     gap:10px;
+  }
+  .cover-names-box{
+    align-items:center;
+    text-align:center;
   }
   .cover-blessing{
     border-left:none;
@@ -1042,7 +1070,15 @@ footer .sm{margin:28px 0 0;font-size:13px;letter-spacing:.28em;color:rgba(244,23
       <p class="cover-sub">Maa Inta Pelli Sandadi · You are cordially invited</p>
 
       <div class="cover-names-box">
-        <h1 class="cover-names">Yamini Anusha <span class="amp"><i>&amp;</i></span> Aswath Narayana</h1>
+        <h1 class="cover-names">
+          <span class="c-nm">Yamini Anusha</span>
+          <span class="cover-amp" aria-label="and">
+            <span class="c-amp-line"></span>
+            <span class="c-amp-symbol"><i>&amp;</i></span>
+            <span class="c-amp-line"></span>
+          </span>
+          <span class="c-nm">Aswath Narayana</span>
+        </h1>
         <p class="telugu cover-telugu-nm">చి॥ల॥సౌ॥ యామిని అనూష &amp; చి॥ అశ్వత్ నారాయణ</p>
       </div>
 
@@ -1544,7 +1580,11 @@ footer .sm{margin:28px 0 0;font-size:13px;letter-spacing:.28em;color:rgba(244,23
     s.split('').forEach(function(c, i){
       var sp=document.createElement('span');
       sp.className='ch';
-      sp.textContent=c;
+      if(c===' '){
+        sp.innerHTML='&nbsp;';
+      } else {
+        sp.textContent=c;
+      }
       sp.style.transitionDelay=(0.35 + row*0.35 + i*0.045)+'s';
       el.appendChild(sp);
     });
